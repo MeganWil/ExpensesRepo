@@ -8,16 +8,20 @@
 
 import UIKit
 
-class ExpensesViewController: UIViewController {
+class ExpensesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var expenses = [Expenses]()
     
     var dateFormat = DateFormatter()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         dateFormat.dateFormat = "MMMM d, yyyy HH:mm"
+        
+       
         
         // unwrapping date
         if let date = dateFormat.date(from: "June 1, 2018 18:30"){
@@ -37,6 +41,28 @@ class ExpensesViewController: UIViewController {
         }
 
     }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return expenses.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath)
+        
+        if let cell = cell as? ExpenseTableViewCell{
+            let expense = expenses[indexPath.row]
+            cell.titleCell.text = expense.title
+            cell.amountCell.text = String("$\(expense.amount)")
+            cell.dateCell.text = dateFormat.string(from: expense.date)
+        }
+        
+        return cell
+    }
+    
     
 
     /*
