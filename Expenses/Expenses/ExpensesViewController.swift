@@ -17,11 +17,25 @@ class ExpensesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateFormat.dateFormat = ""
+        dateFormat.dateFormat = "MMMM d, yyyy HH:mm"
         
-        expenses.append(Expenses(title: "Dinner", amount: 32.50, date: "June 1, 2018 18:30"))
+        // unwrapping date
+        if let date = dateFormat.date(from: "June 1, 2018 18:30"){
+            expenses.append(Expenses(title: "Dinner", amount: 32.50, date: date))
+        }
+        
+        if let date = dateFormat.date(from: "May 30, 2018 12:17"){
+            expenses.append(Expenses(title: "Office Supplies", amount: 59.34, date: date))
+        }
+        
+        if let date = dateFormat.date(from: "May 30, 2018 11:43"){
+            expenses.append(Expenses(title: "Uber", amount: 16.23, date: date))
+        }
+        
+        if let date = dateFormat.date(from: "May 29, 2018 8:45"){
+            expenses.append(Expenses(title: "Coffee", amount: 3.95, date: date))
+        }
 
-        // Do any additional setup after loading the view.
     }
     
 
